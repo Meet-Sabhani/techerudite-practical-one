@@ -8,9 +8,11 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 import { BaseColors } from "@/lib/themeConfig";
 import Button from "./ui/button";
+import { apiCall } from "@/helpers/apiHelper";
+import siteConfig from "@/config/site.config";
 
 const schema = z.object({
-  name: z.string().min(3, "Name must be at least 3 characters"),
+  first_name: z.string().min(3, "Name must be at least 3 characters"),
   lastName: z.string().nonempty("Last name is required"),
   email: z.string().email("Invalid email"),
   phone: z
@@ -33,20 +35,34 @@ const ContactForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    toast.success("Message sent successfully!");
-    reset();
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const response = await apiCall(
+        siteConfig?.endpoints?.contactSend,
+        "POST",
+        data
+      );
+
+      if (response?.success) {
+        toast.success("Message sent successfully!");
+        reset();
+      } else {
+        toast.error(response?.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Failed to send message");
+    }
   };
 
   return (
-    <ContactFormWrapper className="container">
+    <ContactFormWrapper id="contact" className="container">
       <h1>Contact Us</h1>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <FormField>
           <label>Name</label>
-          <input {...register("name")} />
-          {errors.name && <Error>{errors.name.message}</Error>}
+          <input {...register("first_name")} />
+          {errors.first_name && <Error>{errors.first_name.message}</Error>}
         </FormField>
 
         <FormField>
@@ -88,7 +104,7 @@ const ContactForm = () => {
 
 export default ContactForm;
 
-const ContactFormWrapper = styled.form`
+const ContactFormWrapper = styled.div`
   padding: 20px 0;
 
   h1 {

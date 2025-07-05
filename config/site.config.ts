@@ -7,5 +7,6 @@ export default {
   baseUrl,
   endpoints: {
     blog: "blog/",
+    contactSend: "contact/send",
   },
 };
