@@ -39,6 +39,7 @@ export default AboutSection;
 // Styled Wrapper with background only
 const Wrapper = styled.section`
   height: 150dvh;
+  max-height: 1000px;
   width: 100%;
   background-image: url(${images?.aboutBg});
   background-repeat: no-repeat;

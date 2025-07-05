@@ -7,6 +7,7 @@ import Button from "./ui/button";
 import styled from "styled-components";
 import useWindowSize from "@/lib/Hooks/useWindowSize";
 import { FiMenu, FiX } from "react-icons/fi"; // icons
+import Link from "next/link";
 
 export const Navbar = () => {
   const { width } = useWindowSize();
@@ -16,13 +17,15 @@ export const Navbar = () => {
 
   return (
     <NavbarWrapper className="container">
-      <Image
-        src={images?.logo}
-        height={50}
-        width={100}
-        alt="logo"
-        objectFit="contain"
-      />
+      <Link href="/">
+        <Image
+          src={images?.logo}
+          height={50}
+          width={100}
+          alt="logo"
+          objectFit="contain"
+        />
+      </Link>
 
       {isMobileView ? (
         <>
@@ -34,7 +37,9 @@ export const Navbar = () => {
             <MobileMenu>
               <li>Services</li>
               <li>About us</li>
-              <li>Blogs</li>
+              <li>
+                <Link href="/blogs"> Blogs</Link>
+              </li>
               <li>Studies</li>
               <Button>Contact us</Button>
             </MobileMenu>
@@ -44,7 +49,9 @@ export const Navbar = () => {
         <Menu>
           <li>Services</li>
           <li>About us</li>
-          <li>Blogs</li>
+          <li>
+            <Link href="/blogs"> Blogs</Link>
+          </li>
           <li>Studies</li>
           <Button>Contact us</Button>
         </Menu>

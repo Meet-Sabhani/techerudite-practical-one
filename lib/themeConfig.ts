@@ -3,4 +3,5 @@ export const BaseColors = {
   white: "#ffffff",
   texBlack: "#232323",
   textGrey: "#606060",
+  blueColor: "#3D5FDD",
 };

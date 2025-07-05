@@ -47,6 +47,7 @@ export default HeroSection;
 
 const HeroSectionWrapper = styled.section`
   height: 100dvh;
+  max-height: 1000px;
   position: relative;
 
   .topLayer {
