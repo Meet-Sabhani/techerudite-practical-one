@@ -9,7 +9,7 @@ import { BaseColors } from "@/lib/themeConfig";
 
 const AboutSection = () => {
   return (
-    <Wrapper>
+    <Wrapper id="about">
       <div className="container">
         <div className="left">
           <h3>About us</h3>

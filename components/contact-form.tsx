@@ -10,6 +10,7 @@ import { BaseColors } from "@/lib/themeConfig";
 import Button from "./ui/button";
 import { apiCall } from "@/helpers/apiHelper";
 import siteConfig from "@/config/site.config";
+import { useMutation } from "@tanstack/react-query";
 
 const schema = z.object({
   first_name: z.string().min(3, "Name must be at least 3 characters"),
@@ -35,24 +36,25 @@ const ContactForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: FormValues) => {
-    try {
-      const response = await apiCall(
-        siteConfig?.endpoints?.contactSend,
-        "POST",
-        data
-      );
-
+  const contactMutation = useMutation({
+    mutationFn: (data: FormValues) =>
+      apiCall(siteConfig?.endpoints?.contactSend, "POST", data),
+    onSuccess: (response) => {
       if (response?.success) {
         toast.success("Message sent successfully!");
         reset();
       } else {
         toast.error(response?.message || "Something went wrong");
       }
-    } catch (error) {
+    },
+    onError: (error: any) => {
       console.error("Error:", error);
       toast.error("Failed to send message");
-    }
+    },
+  });
+
+  const onSubmit = (data: FormValues) => {
+    contactMutation.mutate(data);
   };
 
   return (
@@ -95,7 +97,9 @@ const ContactForm = () => {
         </FormField>
 
         <div className="submitWrapper">
-          <Button type="submit">Submit</Button>
+          <Button loading={contactMutation?.isPending} type="submit">
+            Submit
+          </Button>
         </div>
       </form>
     </ContactFormWrapper>

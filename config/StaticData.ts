@@ -1,6 +1,6 @@
 export const pagesLinks = [
-  { label: "Services", href: "#" },
-  { label: "About us", href: "#" },
+  { label: "Services", href: "/#services" },
+  { label: "About us", href: "/#about" },
   { label: "Blogs", href: "/blogs" },
-  { label: "Case Studies", href: "#contact" },
+  { label: "Case Studies", href: "/#contact" },
 ];

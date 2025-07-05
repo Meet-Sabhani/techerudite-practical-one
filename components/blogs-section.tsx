@@ -3,7 +3,8 @@
 import siteConfig from "@/config/site.config";
 import { apiCall } from "@/helpers/apiHelper";
 import { BaseColors } from "@/lib/themeConfig";
-import React, { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 interface BlogsSectionI {
@@ -11,31 +12,31 @@ interface BlogsSectionI {
 }
 
 const BlogsSection = ({ fromBlogPage = false }: BlogsSectionI) => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: blogs = [],
+    isLoading: loading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: () =>
+      apiCall(siteConfig?.endpoints?.blog, "GET").then(
+        (res) => res?.data || []
+      ),
+  });
 
   const memoBlogs = useMemo(
     () => (fromBlogPage ? blogs : blogs.slice(0, 3)),
     [fromBlogPage, blogs]
   );
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await apiCall(siteConfig?.endpoints?.blog, "GET");
-        setBlogs(res?.data || []);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs();
-  }, []);
-
   if (loading)
     return <BlogsSectionWrapper>Loading blogs...</BlogsSectionWrapper>;
+
+  if (isError) {
+    console.error("Error fetching blogs:", error);
+    return <p>Failed to load blogs.</p>;
+  }
 
   return (
     <BlogsSectionWrapper>

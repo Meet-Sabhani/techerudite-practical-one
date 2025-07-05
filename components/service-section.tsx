@@ -40,7 +40,7 @@ const serviceData = [
 
 const ServiceSection = () => {
   return (
-    <ServicesWrapper>
+    <ServicesWrapper id="services">
       <h2 className="title">Services</h2>
       <div className="grid">
         {serviceData.map((item, index) => (
