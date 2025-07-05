@@ -27,6 +27,7 @@ const HeroSection = () => {
             <Button>No</Button>
           </div>
         </div>
+        <p className="takeS">Takes less than 30 seconds</p>
       </div>
 
       <div className="topLayer">
@@ -89,12 +90,17 @@ const HeroSectionWrapper = styled.section`
       h2 {
         font-size: 47px;
         font-weight: 700;
+        margin-bottom: 10px;
       }
 
       p {
         font-size: 18px;
         font-weight: 400;
       }
+    }
+
+    .takeS {
+      margin-top: 10px;
     }
 
     .card {
@@ -105,6 +111,7 @@ const HeroSectionWrapper = styled.section`
       border-radius: 12px;
       text-align: center;
       max-width: 500px;
+      margin-left: 50px;
 
       h3 {
         font-size: 28px;
