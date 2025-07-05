@@ -4,4 +4,5 @@ export const BaseColors = {
   texBlack: "#232323",
   textGrey: "#606060",
   blueColor: "#3D5FDD",
+  skyBlue: "#00D5F8",
 };

@@ -6,13 +6,13 @@ import React, { useMemo, useState } from "react";
 import Button from "./ui/button";
 import styled from "styled-components";
 import useWindowSize from "@/lib/Hooks/useWindowSize";
-import { FiMenu, FiX } from "react-icons/fi"; // icons
+import { FiMenu, FiX } from "react-icons/fi";
 import Link from "next/link";
+import { pagesLinks } from "@/config/StaticData";
 
 export const Navbar = () => {
   const { width } = useWindowSize();
   const [menuOpen, setMenuOpen] = useState(false);
-
   const isMobileView = useMemo(() => (width ?? 0) < 992, [width]);
 
   return (
@@ -33,26 +33,24 @@ export const Navbar = () => {
             {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </MenuIcon>
 
-          {menuOpen && (
-            <MobileMenu>
-              <li>Services</li>
-              <li>About us</li>
-              <li>
-                <Link href="/blogs"> Blogs</Link>
+          <Drawer open={menuOpen}>
+            {pagesLinks.map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} onClick={() => setMenuOpen(false)}>
+                  {link.label}
+                </Link>
               </li>
-              <li>Studies</li>
-              <Button>Contact us</Button>
-            </MobileMenu>
-          )}
+            ))}
+            <Button onClick={() => setMenuOpen(false)}>Contact us</Button>
+          </Drawer>
         </>
       ) : (
         <Menu>
-          <li>Services</li>
-          <li>About us</li>
-          <li>
-            <Link href="/blogs"> Blogs</Link>
-          </li>
-          <li>Studies</li>
+          {pagesLinks.map((link) => (
+            <li key={link.label}>
+              <Link href={link.href}>{link.label}</Link>
+            </li>
+          ))}
           <Button>Contact us</Button>
         </Menu>
       )}
@@ -73,10 +71,6 @@ const NavbarWrapper = styled.header`
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 12px;
-
-  @media (max-width: 992px) {
-    flex-direction: row;
-  }
 `;
 
 const Menu = styled.ul`
@@ -86,8 +80,12 @@ const Menu = styled.ul`
 
   li {
     list-style: none;
-    cursor: pointer;
     font-weight: 500;
+
+    a {
+      text-decoration: none;
+      color: #333;
+    }
   }
 `;
 
@@ -97,22 +95,27 @@ const MenuIcon = styled.div`
   cursor: pointer;
 `;
 
-const MobileMenu = styled.ul`
-  position: absolute;
-  top: 100%;
-  right: 20px;
+const Drawer = styled.ul<{ open: boolean }>`
+  position: fixed;
+  top: 80px;
+  right: ${({ open }) => (open ? "20px" : "-100%")};
   background: white;
   border-radius: 10px;
-  padding: 10px 20px;
-  margin-top: 10px;
+  padding: 20px;
+  width: calc(100% - 40px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  transition: right 0.3s ease;
 
   li {
     list-style: none;
-    cursor: pointer;
     font-weight: 500;
+
+    a {
+      text-decoration: none;
+      color: #000;
+    }
   }
 `;
