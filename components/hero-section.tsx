@@ -42,7 +42,7 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.2 }}
       >
-        <Image src={images?.topLayer} alt="top" fill />
+        <Image src={images?.topLayer} alt="top" fill objectFit="cover" />
       </motion.div>
 
       <div className="heroImg">
