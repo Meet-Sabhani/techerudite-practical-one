@@ -84,7 +84,6 @@ const TestimonialsBlogSection = () => {
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="title"
           >
             Blogs
           </motion.h1>
@@ -103,9 +102,8 @@ const TestimonialsBlogSection = () => {
 export default TestimonialsBlogSection;
 
 const TestimonialsBlogSectionWrapper = styled.div`
-  height: 160dvh;
+  min-height: 160dvh;
   max-height: 1300px;
-  overflow: hidden;
   width: 100%;
   background-image: url(${images?.testimonialsBlogBg});
   background-repeat: no-repeat;
@@ -113,7 +111,7 @@ const TestimonialsBlogSectionWrapper = styled.div`
   /* background-position: center; */
   left: 0;
   margin-top: 100px;
-  padding: 0 20px;
+  padding: 0 20px 20px;
 
   .title {
     font-size: 47px;
@@ -195,6 +193,9 @@ const TestimonialsBlogSectionWrapper = styled.div`
         }
       }
     }
+  }
+
+  @media (max-width: 992px) {
   }
 
   @media (max-width: 768px) {
