@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store/store";
+import { usePathname } from "next/navigation";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,10 @@ interface CombinedProvidersProps {
   children: ReactNode;
 }
 const CombinedProviders = ({ children }: CombinedProvidersProps) => {
+  const paddingNotNeedPath = ["/"];
+
+  const pathName = usePathname();
+
   // const [isMount, setIsMount] = useState(false);
   // useEffect(() => {
   //   setIsMount(true);
@@ -44,7 +49,13 @@ const CombinedProviders = ({ children }: CombinedProvidersProps) => {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          {children}
+          <div
+            className={
+              paddingNotNeedPath?.includes(pathName) ? "" : "paddingCommon"
+            }
+          >
+            {children}
+          </div>
         </PersistGate>
       </Provider>
     </QueryClientProvider>

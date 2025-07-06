@@ -23,7 +23,7 @@ const CounterComponent = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="paddingCommon">
+    <>
       <div>
         <h2>Count: {countPersist}</h2>
         <button onClick={() => dispatch(incrementPersist())}>+1</button>
@@ -43,7 +43,7 @@ const CounterComponent = () => {
           +5
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
