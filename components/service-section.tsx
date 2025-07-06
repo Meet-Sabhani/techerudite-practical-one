@@ -72,6 +72,7 @@ const ServicesWrapper = styled.section`
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
 
   .title {
     text-align: center;
@@ -121,5 +122,15 @@ const ServicesWrapper = styled.section`
   .card-desc {
     font-size: 0.95rem;
     color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .title {
+      font-size: 24px;
+    }
+
+    .rightImg {
+      /* display: none; */
+    }
   }
 `;

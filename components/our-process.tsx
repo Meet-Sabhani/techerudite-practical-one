@@ -51,7 +51,7 @@ const OurProcessSection = () => {
 export default OurProcessSection;
 
 const OurProcessSectionWrapper = styled.section`
-  padding-top: 180px;
+  padding: 180px 20px 0;
   min-height: 500px;
   display: flex;
   flex-direction: column;
@@ -70,10 +70,9 @@ const OurProcessSectionWrapper = styled.section`
 
   .stepWrapper {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
 
     .step {
       height: 280px;
@@ -83,6 +82,7 @@ const OurProcessSectionWrapper = styled.section`
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      margin: 0 auto;
 
       .textContainer {
         max-width: 90%;
@@ -122,6 +122,37 @@ const OurProcessSectionWrapper = styled.section`
 
     &.leftSide {
       left: -250px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 20px 0;
+
+    h2 {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .stepWrapper {
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+
+      .step {
+        height: 240px;
+        width: 300px;
+
+        h4 {
+          font-size: 20px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .circleLayer {
+      height: 350px;
+      width: 350px;
     }
   }
 `;

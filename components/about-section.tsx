@@ -24,8 +24,7 @@ const AboutSection = () => {
           <Image
             src={images?.aboutBanner}
             alt="About Us"
-            width={600}
-            height={400}
+            fill
             className="about-image"
           />
         </div>
@@ -43,7 +42,7 @@ const Wrapper = styled.section`
   width: 100%;
   background-image: url(${images?.aboutBg});
   background-repeat: no-repeat;
-  background-size: cover; /* Changed from contain to cover */
+  background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
@@ -53,7 +52,7 @@ const Wrapper = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
+    padding: 0 20px;
     width: 100%;
     gap: 2rem;
   }
@@ -77,8 +76,11 @@ const Wrapper = styled.section`
 
   .rightImg {
     flex: 1;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
+    position: relative;
+    width: 600px;
+    height: 400px;
   }
 
   .about-image {
@@ -87,13 +89,27 @@ const Wrapper = styled.section`
   }
 
   @media (max-width: 768px) {
+    height: 100dvh;
+    max-height: 700px;
+
+    .left h3 {
+      font-size: 24px;
+    }
+
+    .left p {
+      font-size: 16px;
+    }
+
     .container {
-      flex-direction: column;
+      display: block;
       text-align: center;
     }
 
     .rightImg {
-      margin-top: 2rem;
+      height: 300px;
+      width: 100%;
+      max-width: 500px;
+      margin: 2rem auto 0;
     }
   }
 `;

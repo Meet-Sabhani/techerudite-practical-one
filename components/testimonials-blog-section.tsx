@@ -4,10 +4,11 @@ import { images } from "@/config/images";
 import { BaseColors } from "@/lib/themeConfig";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import styled from "styled-components";
 import BlogsSection from "./blogs-section";
+import useWindowSize from "@/lib/Hooks/useWindowSize";
 
 const testimonialsData = [
   {
@@ -21,6 +22,9 @@ const testimonialsData = [
 ];
 
 const TestimonialsBlogSection = () => {
+  const { width } = useWindowSize();
+  const isMobileView = useMemo(() => (width ?? 0) < 992, [width]);
+
   return (
     <TestimonialsBlogSectionWrapper>
       <section className="testimonialsSec container">
@@ -30,16 +34,16 @@ const TestimonialsBlogSection = () => {
             <div key={idx} className="card">
               <Image
                 src={images?.quote}
-                height={40}
-                width={30}
+                height={isMobileView ? 30 : 40}
+                width={isMobileView ? 20 : 30}
                 alt="quoteRight"
                 className="quote top"
               />
 
               <Image
                 src={images?.quote}
-                height={40}
-                width={30}
+                height={isMobileView ? 30 : 40}
+                width={isMobileView ? 20 : 30}
                 alt="quoteRight"
                 className="bottomQuote"
               />
@@ -47,8 +51,8 @@ const TestimonialsBlogSection = () => {
                 <Image
                   src={images?.testimonialImg}
                   alt="testimonial"
-                  height={56}
-                  width={56}
+                  height={isMobileView ? 40 : 56}
+                  width={isMobileView ? 40 : 56}
                   className="img"
                 />{" "}
                 <h5>{item?.title}</h5>
@@ -85,6 +89,7 @@ const TestimonialsBlogSectionWrapper = styled.div`
   /* background-position: center; */
   left: 0;
   margin-top: 100px;
+  padding: 0 20px;
 
   .title {
     font-size: 47px;
@@ -163,6 +168,39 @@ const TestimonialsBlogSectionWrapper = styled.div`
 
         .icon {
           font-size: 25px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 50px;
+
+    .title {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .testimonialsSec {
+      padding: 50px 0;
+
+      .cards {
+        flex-direction: column;
+
+        .card {
+          width: 100%;
+          padding: 15px;
+
+          .top {
+            margin-bottom: 5px;
+
+            h5 {
+              font-size: 16px;
+            }
+          }
+          p {
+            font-size: 14px;
+          }
         }
       }
     }

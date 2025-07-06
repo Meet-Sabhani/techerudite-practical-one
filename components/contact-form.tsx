@@ -130,6 +130,17 @@ const ContactFormWrapper = styled.div`
     display: flex;
     justify-content: center;
   }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 24px;
+    }
+
+    .form {
+      padding: 15px;
+      flex-direction: column;
+    }
+  }
 `;
 
 const FormField = styled.div`
@@ -155,6 +166,16 @@ const FormField = styled.div`
     &:focus {
       outline: none;
       border-color: #0070f3;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+    width: 100%;
+
+    input,
+    textarea {
+      padding: 0.5rem;
     }
   }
 `;

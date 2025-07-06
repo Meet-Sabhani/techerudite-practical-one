@@ -23,6 +23,12 @@ body {
   margin: 0 auto;
 }
 
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
 h1,
 h2,
 h3,

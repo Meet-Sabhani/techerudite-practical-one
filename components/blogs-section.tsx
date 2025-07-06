@@ -111,4 +111,28 @@ const BlogsSectionWrapper = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .BlogList {
+      .BlogCard {
+        img {
+          height: 170px;
+        }
+
+        .blog-info {
+          h3 {
+            font-size: 18px;
+          }
+
+          span {
+            font-size: 14px;
+          }
+
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
 `;

@@ -9,6 +9,7 @@ import useWindowSize from "@/lib/Hooks/useWindowSize";
 import { FiMenu, FiX } from "react-icons/fi";
 import Link from "next/link";
 import { pagesLinks } from "@/config/StaticData";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const Navbar = () => {
   const { width } = useWindowSize();
@@ -16,12 +17,14 @@ export const Navbar = () => {
   const isMobileView = useMemo(() => (width ?? 0) < 992, [width]);
 
   return (
-    <NavbarWrapper className="container">
+    <NavbarWrapper>
       <Link href="/">
         <Image
           src={images?.logo}
-          height={50}
-          width={100}
+          height={isMobileView ? 40 : 50}
+          width={isMobileView ? 80 : 100}
+          quality={100}
+          priority
           alt="logo"
           objectFit="contain"
         />
@@ -33,16 +36,27 @@ export const Navbar = () => {
             {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </MenuIcon>
 
-          <Drawer open={menuOpen}>
-            {pagesLinks.map((link) => (
-              <li key={link.label}>
-                <Link href={link.href} onClick={() => setMenuOpen(false)}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <Button onClick={() => setMenuOpen(false)}>Contact us</Button>
-          </Drawer>
+          <AnimatePresence>
+            {menuOpen && (
+              <MobileDrawer
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ duration: 0.3 }}
+              >
+                <DrawerContent>
+                  {pagesLinks.map((link) => (
+                    <li key={link.label}>
+                      <Link href={link.href} onClick={() => setMenuOpen(false)}>
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                  <Button onClick={() => setMenuOpen(false)}>Contact us</Button>
+                </DrawerContent>
+              </MobileDrawer>
+            )}
+          </AnimatePresence>
         </>
       ) : (
         <Menu>
@@ -71,6 +85,12 @@ const NavbarWrapper = styled.header`
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 12px;
+  max-width: calc(100% - 40px);
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 8px 15px;
+  }
 `;
 
 const Menu = styled.ul`
@@ -93,29 +113,34 @@ const MenuIcon = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  z-index: 1100;
 `;
 
-const Drawer = styled.ul<{ open: boolean }>`
+const MobileDrawer = styled(motion.div)`
   position: fixed;
-  top: 80px;
-  right: ${({ open }) => (open ? "20px" : "-100%")};
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  width: calc(100% - 40px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+`;
+
+const DrawerContent = styled.ul`
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  transition: right 0.3s ease;
+  padding: 24px;
+  gap: 20px;
 
   li {
-    list-style: none;
     font-weight: 500;
 
     a {
       text-decoration: none;
-      color: #000;
+      color: #333;
     }
   }
 `;

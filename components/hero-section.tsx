@@ -126,4 +126,30 @@ const HeroSectionWrapper = styled.section`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .left {
+      width: calc(100% - 40px);
+      left: 20px;
+
+      .textWrapper {
+        h2 {
+          font-size: 30px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+
+      .card {
+        margin-left: 0px;
+        margin-top: 40px;
+
+        h3 {
+          font-size: 20px;
+        }
+      }
+    }
+  }
 `;
