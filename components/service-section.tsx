@@ -4,6 +4,7 @@ import { images } from "@/config/images";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 const serviceData = [
   {
@@ -41,16 +42,31 @@ const serviceData = [
 const ServiceSection = () => {
   return (
     <ServicesWrapper id="services">
-      <h2 className="title">Services</h2>
+      <motion.h2
+        initial={{ opacity: 0, x: -80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="title"
+      >
+        Services
+      </motion.h2>
+
       <div className="grid">
         {serviceData.map((item, index) => (
-          <div className="card" key={index}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            key={index}
+            className="card"
+          >
             {item.img && (
               <img src={item.img} alt={item.title} className="image" />
             )}
             <h3 className="card-title">{item.title}</h3>
             <p className="card-desc">{item.desc}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="rightImg">

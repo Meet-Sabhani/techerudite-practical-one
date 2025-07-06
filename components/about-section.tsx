@@ -6,12 +6,19 @@ import React from "react";
 import styled from "styled-components";
 import Button from "./ui/button";
 import { BaseColors } from "@/lib/themeConfig";
+import { motion } from "framer-motion";
 
 const AboutSection = () => {
   return (
     <Wrapper id="about">
       <div className="container">
-        <div className="left">
+        <motion.div
+          className="left"
+          initial={{ opacity: 0, x: -80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.6 }}
+        >
           <h3>About us</h3>
           <p>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
@@ -19,15 +26,22 @@ const AboutSection = () => {
             sadipscing elitr
           </p>
           <Button>Contact us</Button>
-        </div>
-        <div className="rightImg">
+        </motion.div>
+
+        <motion.div
+          className="rightImg"
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true, amount: 0.6 }}
+        >
           <Image
             src={images?.aboutBanner}
             alt="About Us"
             fill
             className="about-image"
           />
-        </div>
+        </motion.div>
       </div>
     </Wrapper>
   );

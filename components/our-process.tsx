@@ -5,6 +5,7 @@ import { BaseColors } from "@/lib/themeConfig";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -25,11 +26,25 @@ const OurProcessSection = () => {
   return (
     <OurProcessSectionWrapper>
       <div className="container">
-        <h2>Our Process</h2>
+        <motion.h2
+          initial={{ opacity: 0, x: -80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="title"
+        >
+          Our Process
+        </motion.h2>
         <div className="stepWrapper">
           {steps?.map((item, idx) => {
             return (
-              <div key={idx} className="step">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.4 }}
+                viewport={{ once: true }}
+                key={idx}
+                className="step"
+              >
                 <div className="frameWrapper">
                   <Image src={images?.ProcessFrame} alt="frame" fill />
                 </div>
@@ -37,7 +52,7 @@ const OurProcessSection = () => {
                   <h4> {item?.title}</h4>
                   <p>{item?.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

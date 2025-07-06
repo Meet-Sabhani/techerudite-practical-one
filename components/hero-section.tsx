@@ -6,11 +6,17 @@ import React from "react";
 import styled from "styled-components";
 import Button from "./ui/button";
 import { BaseColors } from "@/lib/themeConfig";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
     <HeroSectionWrapper>
-      <div className="left">
+      <motion.div
+        className="left"
+        initial={{ opacity: 0, x: -80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="textWrapper">
           <h2>
             How much <br /> could you save?
@@ -28,18 +34,29 @@ const HeroSection = () => {
           </div>
         </div>
         <p className="takeS">Takes less than 30 seconds</p>
-      </div>
+      </motion.div>
 
-      <div className="topLayer">
-        <Image src={images?.topLayer} alt="buttom" fill />
-      </div>
+      <motion.div
+        className="topLayer"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.2 }}
+      >
+        <Image src={images?.topLayer} alt="top" fill />
+      </motion.div>
 
       <div className="heroImg">
         <Image src={images?.heroRight} alt="buttom" fill objectFit="contain" />
       </div>
-      <div className="bottomLayer">
-        <Image src={images?.bottomLayer} alt="buttom" fill />
-      </div>
+
+      <motion.div
+        className="bottomLayer"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.6 }}
+      >
+        <Image src={images?.bottomLayer} alt="bottom" fill />
+      </motion.div>
     </HeroSectionWrapper>
   );
 };

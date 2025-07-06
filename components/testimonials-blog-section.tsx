@@ -9,6 +9,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import styled from "styled-components";
 import BlogsSection from "./blogs-section";
 import useWindowSize from "@/lib/Hooks/useWindowSize";
+import { motion } from "framer-motion";
 
 const testimonialsData = [
   {
@@ -28,10 +29,25 @@ const TestimonialsBlogSection = () => {
   return (
     <TestimonialsBlogSectionWrapper>
       <section className="testimonialsSec container">
-        <h1 className="title">Testimonials</h1>
+        <motion.h1
+          initial={{ opacity: 0, x: -80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="title"
+        >
+          Testimonials
+        </motion.h1>
+
         <div className="cards">
           {testimonialsData?.map((item, idx) => (
-            <div key={idx} className="card">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.4 }}
+              viewport={{ once: true }}
+              key={idx}
+              className="card"
+            >
               <Image
                 src={images?.quote}
                 height={isMobileView ? 30 : 40}
@@ -58,13 +74,21 @@ const TestimonialsBlogSection = () => {
                 <h5>{item?.title}</h5>
               </div>
               <p>{item?.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
       <section className="blogs container">
         <div className="topDiv">
-          <h1>Blogs</h1>
+          <motion.h1
+            initial={{ opacity: 0, x: -80 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="title"
+          >
+            Blogs
+          </motion.h1>
+
           <Link href="/blogs" className="btn">
             View All
             <IoIosArrowRoundForward className="icon" />

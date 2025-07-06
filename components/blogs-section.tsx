@@ -6,6 +6,7 @@ import { BaseColors } from "@/lib/themeConfig";
 import { useQuery } from "@tanstack/react-query";
 import React, { useMemo } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 interface BlogsSectionI {
   fromBlogPage?: boolean;
@@ -44,8 +45,15 @@ const BlogsSection = ({ fromBlogPage = false }: BlogsSectionI) => {
         <p>No blogs found.</p>
       ) : (
         <div className="BlogList">
-          {memoBlogs.map((blog: any) => (
-            <div className="BlogCard" key={blog.id}>
+          {memoBlogs.map((blog: any, idx: number) => (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.4 }}
+              viewport={{ once: true }}
+              className="BlogCard"
+              key={blog?.id || idx}
+            >
               <img src={blog?.image_url} alt={blog?.name} />
               <div className="blog-info">
                 <h3>{blog.name}</h3>
@@ -59,7 +67,7 @@ const BlogsSection = ({ fromBlogPage = false }: BlogsSectionI) => {
                 </span>
                 <p>{blog?.short_description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}
